@@ -1,0 +1,4 @@
+node_modules/
+*.log
+scribble/
+.DS_Store
