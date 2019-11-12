@@ -1,4 +1,5 @@
 let google_auth = require('../lib/google-auth')
+const APP_URL = 'http://localhost:8082'
 
 let homepage = function(req, res){
     let user_details = false
@@ -13,6 +14,11 @@ let homepage = function(req, res){
     });
 }
 
+let googleURLHandler = function(req, res) {
+    return res.status(200).send({
+        google_url: google_auth.googleUrl()
+    })
+}
 
 let loginpage = function(req, res) {
     res.render('pages/login', {
@@ -20,6 +26,13 @@ let loginpage = function(req, res) {
         title: 'login'
     })
 }
+
+let loginHandler = function(req, res) {
+    let params = req.body
+    console.log('params: ', params)
+    return res.status(200).send('OK')
+}
+
 
 let logoutHandler = async function(req, res) {
     let logged_out = await req.session.destroy()
@@ -38,20 +51,19 @@ let callbackHandler = async function(req, res) {
     console.log('user_details: ', user_details)
     if (user_details.hasOwnProperty('id')){
         req.session.user = user_details
-        res.status(301).redirect('/')
+        // res.status(200).json({...user_details})
+        res.status(301).redirect('http://localhost:8082/index.html')
         return
-        // res.render('pages/index', {
-        //     title: 'home',
-        //     user_details: user_details
-        // })
     } else {
-        res.redirect('/login')
+        res.redirect(APP_URL + '/login')
     }
 }
 
 module.exports = {
     homepage: homepage,
     loginView: loginpage,
+    loginHandler: loginHandler,
     callbackHandler: callbackHandler,
-    logoutHandler: logoutHandler
+    logoutHandler: logoutHandler,
+    googleURLHandler: googleURLHandler
 }
