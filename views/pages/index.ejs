@@ -1,7 +1,9 @@
 <% include ../partials/head %>
     <body >
         <div class="container">Landing page</div>
-
+        <% if (user_details) { %>
+            <h2><%= user_details.email %></h2>
+          <% } %>
         <% include ../partials/scripts %>
         <% include ../partials/scripts-chat %>
     </body>
