@@ -52,7 +52,7 @@ let callbackHandler = async function(req, res) {
     if (user_details.hasOwnProperty('id')){
         req.session.user = user_details
         // res.status(200).json({...user_details})
-        res.status(301).redirect('http://localhost:8082/index.html')
+        res.status(301).redirect(APP_URL + '/index.html')
         return
     } else {
         res.redirect(APP_URL + '/login')
