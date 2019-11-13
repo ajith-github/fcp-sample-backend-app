@@ -1,5 +1,5 @@
 let google_auth = require('../lib/google-auth')
-const APP_URL = 'http://localhost:8082'
+const APP_URL = process.env.APP_URL
 
 let homepage = function(req, res){
     let user_details = false
