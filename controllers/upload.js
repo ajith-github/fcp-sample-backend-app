@@ -17,7 +17,7 @@ function uploadToS3(client, filename) {
         localFile: filename,
 
         s3Params: {
-            Bucket: "badapp-videos",
+            Bucket: process.env.S3_BUCKET,
             Key: "some/remote/file"
         },
     };
