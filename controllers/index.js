@@ -1,4 +1,5 @@
 let google_auth = require('../lib/google-auth')
+let mysql = require('../lib/mysql')
 const APP_URL = process.env.APP_URL
 
 let homepage = function(req, res){
@@ -27,10 +28,26 @@ let loginpage = function(req, res) {
     })
 }
 
-let loginHandler = function(req, res) {
-    let params = req.body
-    console.log('params: ', params)
-    return res.status(200).send('OK')
+let loginHandler = async function(req, res) {
+    try {
+        let params = req.body
+        console.log('[loginHandler backend] params: ', params)
+        let conn = await mysql.connect()
+
+        console.log('[loginHandler backend] db connection established: ', conn.threadId)
+        // mysql.end(conn)
+        let user_details = {
+            id: '115407523459751158832',
+            email: 'ajith26488@gmail.com'
+        }
+        console.log('[loginHandler backend] user_details: ', user_details)
+        return res.status(200).send(user_details)
+
+    } catch(ex) {
+        console.log('[loginHandler backend] exception: ', ex.stack)
+        return res.status(500).send('Internal server error.')
+
+    }
 }
 
 
