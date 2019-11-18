@@ -7,6 +7,7 @@ const session = require('express-session');
 var cors = require('cors');
 
 var indexRouter = require('./routes/index');
+var queueRouter = require('./routes/queue');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/queue', queueRouter);
 app.use('/users', usersRouter);
 
 
