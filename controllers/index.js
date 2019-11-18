@@ -1,4 +1,3 @@
-let google_auth = require('../lib/google-auth')
 let mysql = require('../lib/mysql')
 
 let loginHandler = async function(req, res) {
